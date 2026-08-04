@@ -22,4 +22,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: blackt1221/mi-api:latest
+          tags: spl4shsc4r/proyecto-app-flask:latest

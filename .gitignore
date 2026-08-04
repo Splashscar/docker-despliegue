@@ -1,0 +1,28 @@
+# Variables de entorno
+.env
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos temporales
+*.log
+
+# VS Code
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Carpetas temporales
+tempdir/
+
+sample-app.sh

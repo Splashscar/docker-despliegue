@@ -22,8 +22,19 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
 
+      
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: always
     ports:
-      - "3306:3306"
+      - "3001:3001"
+    volumes:
+      - uptime-kuma-data:/app/data
+    networks:
+      - red-cba
+    ports:
+      - "3001:3001"
 
     volumes:
       - mysql_data:/var/lib/mysql

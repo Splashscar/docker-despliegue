@@ -41,6 +41,11 @@ services:
       - uptime-kuma-data:/app/data
     networks:
       - red-cba
+    volumes:
+      mysql-data:
+        name: mysql-data
+        uptime-kuma-data:
+          name: uptime-kuma-data
 
   app-backend:
     image: spl4shsc4r/proyecto-app-flask:latest

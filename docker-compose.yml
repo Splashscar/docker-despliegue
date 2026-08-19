@@ -1,17 +1,22 @@
 services:
+
   nginx-proxy-manager:
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: jc21/nginx-proxy-manager:latest
     container_name: proxy-manager
     restart: always
+
     ports:
-      - "80:80" #Http
-      - "81:81" #administracion de la API
-      - "443:443" #Https
+      - "80:80"      # HTTP
+      - "81:81"      # Panel de administración
+      - "443:443"    # HTTPS
+
     volumes:
       - ./npm_data:/data
       - ./npm_letsencrypt:/etc/letsencrypt
+
     networks:
       - red-cba
+
 
   servidor-bd:
     image: mysql:8.0
@@ -31,26 +36,10 @@ services:
     networks:
       - red-cba
 
-  uptime-kuma:
-    image: louislam/uptime-kuma:1
-    container_name: uptime-kuma
-    restart: always
-    ports:
-      - "3001:3001"
-    volumes:
-      - uptime-kuma-data:/app/data
-    networks:
-      - red-cba
-    volumes:
-      mysql-data:
-        name: mysql-data
-        uptime-kuma-data:
-          name: uptime-kuma-data
-
   app-backend:
     image: spl4shsc4r/proyecto-app-flask:latest
-
     container_name: app-backend
+    restart: always
 
     ports:
       - "5050:5050"
@@ -67,9 +56,30 @@ services:
     networks:
       - red-cba
 
-networks:
-  red-cba:
-    name: red-cba-ejemplo
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: always
+
+    ports:
+      - "3001:3001"
+
+    volumes:
+      - uptime-kuma-data:/app/data
+
+    networks:
+      - red-cba
 
 volumes:
+
   mysql_data:
+    name: mysql-data
+
+  uptime-kuma-data:
+    name: uptime-kuma-data
+
+networks:
+
+  red-cba:
+    name: red-cba-ejemplo
+    external: true

@@ -33,8 +33,6 @@ services:
       - uptime-kuma-data:/app/data
     networks:
       - red-cba
-    ports:
-      - "3001:3001"
 
     volumes:
       - mysql_data:/var/lib/mysql

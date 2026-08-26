@@ -94,7 +94,7 @@ def registrar():
         
     return redirect(url_for("home"))
 
-HOST = os.getenv("HOST")
+HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", "5050"))
 
 if __name__ == "__main__":

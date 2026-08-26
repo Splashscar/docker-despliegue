@@ -1,14 +1,15 @@
-FROM python:3.8-slim-buster
+FROM python:3.12-alpine
+
 WORKDIR /home/myapp
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk update && apk upgrade
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 5050
-CMD ["python3", "app.py"]
 
+RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir -r requirements.txt && rm -rf /usr/local/lib/python3.12/site-packages/pip /usr/local/lib/python3.12/site-packages/pip-*.dist-info
+
+COPY . .
+
+EXPOSE 5050
+
+CMD ["python3", "app.py"]

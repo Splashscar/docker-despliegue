@@ -6,7 +6,7 @@ on:
 
 
 jobs:
-  test:  
+  test-and-security:  
     runs-on: ubuntu-latest
     steps:
       - name: Descargar código
@@ -22,7 +22,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest
-      
+
+      - name: Escaneo de seguridad (bandit)
+        run: bandit -r . -s B101
+
       - name: Ejecutar pruebas pytest
         run: pytest
 
@@ -43,8 +46,24 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
+          push: false
+          load: true
+          no-cache: true
           tags: spl4shsc4r/proyecto-app-flask:latest
+
+      - name: Escanear contenedor con trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'spl4shsc4r/proyecto-app-flask:latest'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: 'CRITICAL,HIGH'
+
+      - name: Subir imagen a Docker hub
+        run: docker push spl4shsc4r/proyecto-app-flask:latest 
+
       
       - name: Desplegar en servidor cloud
         uses: appleboy/ssh-action@v1.0.3

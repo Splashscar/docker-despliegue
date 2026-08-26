@@ -48,6 +48,8 @@ services:
       - servidor-bd
 
     environment:
+      HOST: 0.0.0.0
+      PORT: 5050
       DB_HOST: ${DB_HOST}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}

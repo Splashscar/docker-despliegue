@@ -72,15 +72,6 @@ services:
     networks:
       - red-cba
 
-volumes:
-
-  mysql_data:
-    name: mysql-data
-
-  uptime-kuma-data:
-    name: uptime-kuma-data
-
-  
   dozzle:
     name: amir20/dozzle:latest
     container_name: dozzle
@@ -91,6 +82,16 @@ volumes:
       - "8080:8080"
     networks:
       - red-cba
+
+volumes:
+
+  mysql_data:
+    name: mysql-data
+
+  uptime-kuma-data:
+    name: uptime-kuma-data
+
+  
 
 networks:
 
